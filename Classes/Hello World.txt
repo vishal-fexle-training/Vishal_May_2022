@@ -12,5 +12,11 @@ class Print
 
 		//New Statement by Dev2
 		System.out.print("New Statement by Dev2");
+
+		//Statement after Dev3 branch
+		System.out.println("Where are you?");
+
+		//New Statement
+		System.out.println("Statement 1 for conflict");
 	}
 }
