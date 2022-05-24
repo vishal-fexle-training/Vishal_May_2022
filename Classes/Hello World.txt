@@ -9,5 +9,8 @@ class Print
 
 		//Statement by Dev1
 		System.out.print("How are you?");
+
+		//New Statement by Dev2
+		System.out.print("New Statement by Dev2");
 	}
 }
