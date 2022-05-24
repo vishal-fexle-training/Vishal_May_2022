@@ -4,8 +4,14 @@ class Print
 	{
 		System.out.print("Hello World");
 
+		//Statement by Dev2
+		System.out.print("What are you doing?");
+
 		//Statement by Dev1
 		System.out.print("How are you?");
+
+		//New Statement by Dev2
+		System.out.print("New Statement by Dev2");
 
 		//Statement after Dev3 branch
 		System.out.println("Where are you?");
