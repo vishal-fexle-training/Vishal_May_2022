@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>*</members>
+        <members>fetchStudent</members>
+        <members>fetchStudent1</members>
+        <members>insertStudent</members>
+        <members>insertStudent1</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
-        <name>ApexTrigger</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>Student__c</members>
         <name>CustomObject</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Student__c</members>
         <name>CustomTab</name>
     </types>
     <types>
         <members>*</members>
-        <name>ValidationRule</name>
+        <name>GlobalValueSet</name>
     </types>
-    <version>54.0</version>
+    <types>
+        <members>Student__c-Registrar Layout</members>
+        <members>Student__c-Teacher Layout</members>
+        <name>Layout</name>
+    </types>
+    <version>53.0</version>
 </Package>
