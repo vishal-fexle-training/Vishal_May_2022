@@ -5,7 +5,14 @@
         <members>Distinction</members>
         <members>PrimitiveClass</members>
         <members>YogaClass</members>
+		<members>AddUniversityAddress</members>
+        <members>fetchStudent1</members>
         <name>ApexClass</name>
+    </types>
+	<types>
+        <members>Student__c.Father_Name__c</members>
+        <members>Student__c.University_Address__c</members>
+        <name>CustomField</name>
     </types>
     <version>53.0</version>
 </Package>
