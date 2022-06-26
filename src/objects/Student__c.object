@@ -379,6 +379,17 @@
         <fullName>Father_Name__c</fullName>
         <externalId>false</externalId>
         <label>Father Name</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>University_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>University Address</label>
         <length>80</length>
         <required>false</required>
         <trackHistory>false</trackHistory>
@@ -1185,3 +1196,4 @@ IF( Overall_Percentage__c*100 &gt;= 36 &amp;&amp; Overall_Percentage__c*100 &lt;
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
+
