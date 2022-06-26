@@ -1,60 +1,89 @@
-public with sharing class CollectionClass 
-{
-    public CollectionClass() 
-    {
-        //List
-        List<String> l1 = new List<String>();
-        l1.add('Rajasthan');
-        l1.add('Gujarat');
-        l1.add('Maharashtra');
-        System.debug('Values in List : ' + l1);
+/*
+  *  Purpose         :    This Class is used to test Collections
+  *  Created By      :    Vishal Tourani
+  *  Created Date    :    2022/06/22
+  *  Revision Logs   :    V_2.0 - Created - 2022/06/24
+*/
+public with sharing class CollectionClass{
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method is used to display list
+      * Params        :    Void
+      * Return        :    Void
+    */
+    public static void listDisplay(){
+        List<String> listStates = new List<String>();
+        listStates.add('Rajasthan');
+        listStates.add('Gujarat');
+        listStates.add('Maharashtra');
+        System.debug('Values in List : '+listStates);
         
-        System.debug('Value at 2 index : ' + l1.get(1));
+        System.debug('Value at 2 index : '+listStates.get(1));
 
-        List<String> dupl1 = l1.clone();
-        System.debug('Copy of l1 : ' + dupl1);
+        List<String> duplistStates = listStates.clone();
+        System.debug('Copy of listStates : '+duplistStates);
 
-        dupl1.sort();
-        System.debug('After Sorting : ' + dupl1);
+        duplistStates.sort();
+        System.debug('After Sorting : '+duplistStates);
 
-        //Set
-        Set<Integer> s1 = new Set<Integer>();
-        s1.add(2);
-        s1.add(6);
-        s1.add(4);
-        System.debug('Values in Set : ' + s1);
+        System.debug('Size of List : '+listStates.size());
+    }
 
-        List <Integer> l2 = new List<Integer>{3,9,1};
-        s1.addall(l2);
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method is used to display set
+      * Params        :    Void
+      * Return        :    Void
+    */
+    public static void setDisplay(){
+        Set<Integer> setNumber = new Set<Integer>();
+        setNumber.add(2);
+        setNumber.add(6);
+        setNumber.add(4);
+        System.debug('Values in Set : '+setNumber);
 
-        System.debug('Check if list values are present : ' + s1.containsAll(l2));
+        List <Integer> listNumber = new List<Integer>{3,9,1};
+        setNumber.addall(listNumber);
 
-        System.debug('After adding list values in Set : ' + s1);
+        System.debug('Check if list values are present : '+setNumber.containsAll(listNumber));
 
-        System.debug('Check if 10 is present : ' + s1.contains(10));
+        System.debug('After adding list values in Set : '+setNumber);
 
-        s1.remove(3);
-        System.debug('After emoving element 3 : ' + s1);
+        System.debug('Check if 10 is present : '+setNumber.contains(10));
 
-        Set<Account> s2 = new Set<Account>();
+        setNumber.remove(3);
+        System.debug('After emoving element 3 : '+setNumber);
+
+        Set<Account> setAcc = new Set<Account>();
         Account a1 = new Account(Name = 'Flipkart', NumberOfEmployees = 50000);
         Account a2 = new Account(Name = 'Myntra', NumberOfEmployees = 60000);
         Account a3 = new Account(Name = 'Flipkart');
-        s2.add(a1);
-        s2.add(a2);
-        s2.add(a3);
-        System.debug('Values in Account Set : ' + s2);
+        setAcc.add(a1);
+        setAcc.add(a2);
+        setAcc.add(a3);
+        System.debug('Values in Account Set : '+setAcc);
+    }
 
-        //Map
-        Map<Integer, String> m1 = new Map<Integer, String>();
-        m1.put(10,'John');
-        m1.put(20,'Michael');
-        m1.put(30,'Steve');
-        System.debug(m1);
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method is used to display map
+      * Params        :    Void
+      * Return        :    Void
+    */
+    public static void mapDisplay(){
+        Map<Integer, String> mapPeople = new Map<Integer, String>();
+        mapPeople.put(10,'John');
+        mapPeople.put(20,'Michael');
+        mapPeople.put(30,'Steve');
+        System.debug(mapPeople);
 
-        System.debug('Keys in Map : '+m1.keySet());
+        System.debug('Keys in Map : '+mapPeople.keySet());
 
-        m1.clear();
-        System.debug('Check if Map is empty : '+m1.isEmpty());
+        System.debug('Values in Map'+mapPeople.values());
+
+        System.debug('Check if 40 key is present : '+mapPeople.containsKey(10));
+
+        mapPeople.clear();
+        System.debug('Check if Map is empty : '+mapPeople.isEmpty());
     }
 }
