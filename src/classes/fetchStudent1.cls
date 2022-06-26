@@ -12,9 +12,10 @@ public class fetchStudent1
 
 		for(Student__c student : s1)
 		{
-			
+			System.debug('Student Details : ' + student);
 		}
         
+        //Another Way
         //System.debug( [ Select Name from Student__c ] );
 
         for(Integer i=0; i<s1.size(); i++){
