@@ -10,9 +10,11 @@
 		<members>May25C1</members>
 		<members>May25C2</members>
 		<members>MyHelloWorld</members>
+		<members>OperatorPrecedence</members>
 		<members>Patterns</members>
 		<members>Patterns1</members>
 		<members>PrimitiveClass</members>
+		<members>SafeNavigation</members>
 		<members>YogaClass</members>
 		<members>fetchStudent</members>
 		<members>fetchStudent1</members>
