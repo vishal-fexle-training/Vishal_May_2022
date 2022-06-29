@@ -25,8 +25,10 @@ public with sharing class SafeNavigation{
      * Return        :    Void
     */
     public static void methodList(){
-        List<String> listCountry =  new List<String>();
-        System.debug('List of countries : '+listCountry?.toString());  
+        List<String> listCountry;
+        System.debug('List of countries : '+listCountry?.toString());
+        listCountry =  new List<String>();
+		System.debug('List of countries : '+listCountry?.toString());  
         listCountry.add('India');
         listCountry.add('Germany');
         listCountry.add('USA');    
@@ -42,7 +44,9 @@ public with sharing class SafeNavigation{
     public static void methodSet(){
         List<String> listCountry =  new List<String>{'India', 'Germany', 'USA'};
 
-        Set<String> setCountry = new Set<String>();
+        Set<String> setCountry;
+        System.debug('Check if elements of list are present : '+(setCountry?.containsAll(listCountry)));
+        setCountry = new Set<String>();
         System.debug('Check if elements of list are present : '+(setCountry?.containsAll(listCountry)));
         setCountry.add('India');
         setCountry.add('Germany');
