@@ -13,7 +13,7 @@ public with sharing class ExpressionsAndOperators{
     */
     public static void arithmeticOperators(Integer operand1, Integer operand2){
         System.debug('Addition : '+(operand1 + operand2));
-        System.debug('Subtraction : '+(operand1 + operand2));
+        System.debug('Subtraction : '+(operand1 - operand2));
         System.debug('Multiplication : '+(operand1 * operand2));
         System.debug('Division : '+(operand1 / operand2));
     }
