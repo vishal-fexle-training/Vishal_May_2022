@@ -15,6 +15,7 @@
 		<members>HelloWorldTestClass</members>
 		<members>May25C1</members>
 		<members>May25C2</members>
+		<members>MethodOverloading</members>
 		<members>MyHelloWorld</members>
 		<members>OperatorPrecedence</members>
 		<members>Patterns</members>
