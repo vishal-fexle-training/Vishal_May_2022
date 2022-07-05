@@ -33,6 +33,12 @@ public with sharing class ProcessPurchaseOrder{
         }
     }
 
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method will process orders
+      * Params        :    Void
+      * Return        :    Void
+    */
     public void orderPurchased(){
         processOrder(orderCustomer);
         processOrder(orderEmployee);
