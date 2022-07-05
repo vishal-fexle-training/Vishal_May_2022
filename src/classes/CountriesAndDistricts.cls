@@ -4,15 +4,6 @@
   *  Created Date    :    2021/12/10
   *  Revision Logs   :    V_2.0 - Created - 2022/06/24
 */
-/*
-    Country Code    : Integer 
-    Country Names   : String
-    State Names     : String
-    District Names  : List<String>
-    Map<Country_Code, 
-	    Map<Country_Names,
-	 	    Map<State Names, List<Districts> >>>;
-*/
 public with sharing class CountriesAndDistricts{
     Map<Integer, Map<String, Map<String, List<String>>>> mapCountryCode = new Map<Integer, Map<String, Map<String, List<String>>>>();
 
@@ -188,30 +179,6 @@ public with sharing class CountriesAndDistricts{
       * Purpose       :    This method will display districts with mentioned staring alphabet
       * Params        :    Integer longestSize
       * Return        :    Void
-    */
-    /*
-    public static void findDistrictsStartingWith(String startingCharacter){
-        List<String> allDistricts = new List<String>();
-
-        for(Integer keyCountryCode : mapCountryCode.keySet()){
-            Map<String, Map<String, List<String>>> mapContinent = mapCountryCode.get(keyCountryCode);
-
-            for(String keyCountryName : mapContinent.keySet()){
-                Map<String, List<String>> mapCountry = mapContinent.get(keyCountryName);
-
-                for(String keyState : mapCountry.keySet()){
-                    List<String> listDistricts = mapCountry.get(keyState);
-
-                    for(String district : listDistricts){
-                        if(district.startsWithIgnoreCase(startingCharacter)){
-                           allDistricts.add(district);
-                        }
-                    }
-                }
-            }
-        }
-        System.debug('List of districts staring with '+startingCharacter+' are : '+allDistricts);
-    }
     */
     public void findDistrictsStartingWith(String startingCharacter){
         System.debug('Name of districts starting with : '+startingCharacter);
