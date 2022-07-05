@@ -126,6 +126,39 @@ public with sharing class CountriesAndDistricts{
 
     /*
       * Created By    :    Vishal Tourani
+      * Purpose       :    This method will display districts in country with same longest size
+      * Params        :    Integer longestSize
+      * Return        :    Map<String, List<String>>
+    */
+    public Map<Integer, Map<String, List<String>>> longestDistrictWithCountry(Integer longestSize){
+        Map<Integer, Map<String, List<String>>> districtsWithCountry = new Map<Integer, Map<String, List<String>>>();
+        Integer count = 0; 
+        
+        for(Integer keyCountryCode : mapCountryCode.keySet()){
+            Map<String, Map<String, List<String>>> mapContinent = mapCountryCode.get(keyCountryCode);
+
+            for(String keyCountryName : mapContinent.keySet()){
+                Map<String, List<String>> mapCountry = mapContinent.get(keyCountryName);
+
+                for(String keyState : mapCountry.keySet()){
+                    List<String> listDistricts = mapCountry.get(keyState);
+
+                    for(String district : listDistricts){
+                        if(district.length() > longestSize){
+                            System.debug(district);
+                            count++;
+                            Map<String, List<String>> mapTemp = new Map<String, List<String>>{keyState=>listDistricts};
+                            districtsWithCountry.put(count, mapTemp);
+                        }
+                    }
+                }
+            }
+        }
+        return districtsWithCountry;
+    }
+
+    /*
+      * Created By    :    Vishal Tourani
       * Purpose       :    This method will display districts with mentioned staring alphabet
       * Params        :    Integer longestSize
       * Return        :    Void
