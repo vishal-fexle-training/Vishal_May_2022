@@ -5,12 +5,12 @@
   *  Revision Logs   :    V_1.0 - Created - 2022/06/28
 */
 public with sharing class ProcessPurchaseOrder{
-    public ProcessPurchaseOrder(){
-        PurchaseOrder order1 = new CustomerPurchaseOrder();
-        PurchaseOrder order2 = new EmployeePurchaseOrder();
+    PurchaseOrder orderCustomer;
+    PurchaseOrder orderEmployee;
 
-        processOrder(order1);
-        processOrder(order2);
+    public ProcessPurchaseOrder(){
+        orderCustomer = new CustomerPurchaseOrder();
+        orderEmployee = new EmployeePurchaseOrder();
     }
 
     /*
@@ -25,6 +25,16 @@ public with sharing class ProcessPurchaseOrder{
         }
         else{
             System.debug('Check Discount for Employee : '+order.discount());
+            /*
+            order.benifit();
+            Error : Method does not exist or incorrect signature
+            Cannot call this method because this method is not define in interface
+            */
         }
+    }
+
+    public void orderPurchased(){
+        processOrder(orderCustomer);
+        processOrder(orderEmployee);
     }
 }

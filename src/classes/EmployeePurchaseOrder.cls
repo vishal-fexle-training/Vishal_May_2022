@@ -6,6 +6,10 @@
 */
 public class EmployeePurchaseOrder implements PurchaseOrder{
     public Double discount(){
-        return .10; 
-    } 
+      return .10; 
+    }
+
+    public void benifit(){
+      System.debug('Being an Employee extra 5 percent discount is applied');
+    }
 }

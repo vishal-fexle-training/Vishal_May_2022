@@ -2,7 +2,7 @@
   *  Purpose         :    This Class is a child class and stores Staff details
   *  Created By      :    Vishal Tourani
   *  Created Date    :    2022/06/28
-  *  Revision Logs   :    V_1.0 - Created - 2022/06/28
+  *  Revision Logs   :    V_2.0 - Created - 2022/07/05
 */
 public with sharing class Staff extends University.College{
     String staffName;    
@@ -24,6 +24,16 @@ public with sharing class Staff extends University.College{
     public Staff(String name, String collegeName, String collegeAddress, String universityName, String universityAddress){
         super(collegeName, collegeAddress, universityName, universityAddress);        
         staffName = name;
+    }
+
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method will return staff name to display
+      * Params        :    Void
+      * Return        :    String
+    */
+    public String displayStaff(){
+        return staffName;
     }
 
     /*
