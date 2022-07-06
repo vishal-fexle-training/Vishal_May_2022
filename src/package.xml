@@ -2,7 +2,20 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
 		<members>CountriesAndDistricts</members>
-        <members>TypeCastSobject</members>
+    <members>TypeCastSobject</members>
+		<members>CheckObjectType</members>
+    <members>CustomerPurchaseOrder</members>
+    <members>EmployeePurchaseOrder</members>
+    <members>ProcessPurchaseOrder</members>
+    <members>PurchaseOrder</members>
+    <members>Staff</members>
+    <members>University</members>
+		<members>AccessModifiers</members>
+		<members>ArgumentPassing</members>
+		<members>ControlStatements</members>
+		<members>Employee</members>
+		<members>Person</members>
+		<members>Shape</members>
 		<members>AddUniversityAddress</members>
 		<members>CollectionClass</members>
 		<members>DemoSampleClass</members>
@@ -11,6 +24,7 @@
 		<members>HelloWorldTestClass</members>
 		<members>May25C1</members>
 		<members>May25C2</members>
+		<members>MethodOverloading</members>
 		<members>MyHelloWorld</members>
 		<members>OperatorPrecedence</members>
 		<members>Patterns</members>
