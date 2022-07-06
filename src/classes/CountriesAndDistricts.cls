@@ -7,7 +7,6 @@
 public with sharing class CountriesAndDistricts{
     Map<Integer, Map<String, Map<String, List<String>>>> mapCountryCode = new Map<Integer, Map<String, Map<String, List<String>>>>();
 
-    //List<String> listCountry = new List<String>{'India', 'Australia', 'Germany'};
     public CountriesAndDistricts(){
         //Lists for Bangladesh,880
         List<String> districtBarisalDivision = new List<String>{'Bhola', 'Jhalokati', 'Patuakhali'};
@@ -53,8 +52,6 @@ public with sharing class CountriesAndDistricts{
       * Return        :    Void
     */
     public void findWith(String startingCharacter){
-        //To get Continent Code Set
-        Set<Integer> setKeys =  mapCountryCode.keySet();
         Integer flag=0;
 
         //To get Continent Code
@@ -126,11 +123,11 @@ public with sharing class CountriesAndDistricts{
 
     /*
       * Created By    :    Vishal Tourani
-      * Purpose       :    This method will display districts in country with same longest size
+      * Purpose       :    This method will display districts in state with same longest size
       * Params        :    Integer longestSize
       * Return        :    Map<String, List<String>>
     */
-    public Map<Integer, Map<String, List<String>>> longestDistrictWithCountry(Integer longestSize){
+    public Map<Integer, Map<String, List<String>>> longestDistrictWithState(Integer longestSize){
         Map<Integer, Map<String, List<String>>> districtsWithCountry = new Map<Integer, Map<String, List<String>>>();
         Integer count = 0; 
         
@@ -241,4 +238,58 @@ public with sharing class CountriesAndDistricts{
             }
         } 
     }
+
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method will check if country is present
+      * Params        :    String toFind
+      * Return        :    Void
+    */
+    public void findCountry(String toFind){
+        //String str = mapCountryCode.values().toString();
+        //System.debug(str);
+        toFind = toFind + '={';
+
+        if(mapCountryCode.toString().contains(toFind)){
+            System.debug('Country is present');
+        }
+        else{
+            System.debug('Country is not available');
+        }
+    }
+    
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method will check if state is present
+      * Params        :    String toFind
+      * Return        :    Void
+    */
+    public void findState(String toFind){
+        toFind = toFind + '=(';
+        
+        if(mapCountryCode.toString().contains(toFind)){
+            System.debug('State is present');
+        }
+        else{
+            System.debug('State is not available');
+        }    
+    }
+
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method will check if district is present
+      * Params        :    String toFind
+      * Return        :    Void
+    */
+    public void findDistrict(String toFind){
+        toFind = toFind + ', ';
+
+        if(mapCountryCode.toString().contains(toFind)){
+            System.debug('District is present');
+        }
+        else{
+            System.debug('District is not available');    
+        }    
+    }
+    
 }
