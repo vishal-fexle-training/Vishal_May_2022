@@ -282,9 +282,7 @@ public with sharing class CountriesAndDistricts{
       * Return        :    Void
     */
     public void findDistrict(String toFind){
-        toFind = toFind + ', ';
-
-        if(mapCountryCode.toString().contains(toFind)){
+        if(mapCountryCode.toString().contains(toFind+', ') || mapCountryCode.toString().contains(toFind+')') ){
             System.debug('District is present');
         }
         else{
