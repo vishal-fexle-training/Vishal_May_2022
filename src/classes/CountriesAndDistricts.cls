@@ -259,14 +259,7 @@ public with sharing class CountriesAndDistricts{
       * Return        :    Void
     */
     public void findState(String toFind){
-        toFind = toFind + '=(';
-        
-        if(mapCountryCode.toString().contains(toFind)){
-            System.debug('State is present');
-        }
-        else{
-            System.debug('State is not available');
-        }    
+        System.debug(mapCountryCode.toString().contains(toFind+'=(')?'State is present':'State is not available');
     }
 
     /*
