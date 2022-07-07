@@ -246,16 +246,10 @@ public with sharing class CountriesAndDistricts{
       * Return        :    Void
     */
     public void findCountry(String toFind){
-        //String str = mapCountryCode.values().toString();
-        //System.debug(str);
         toFind = toFind + '={';
 
-        if(mapCountryCode.toString().contains(toFind)){
-            System.debug('Country is present');
-        }
-        else{
-            System.debug('Country is not available');
-        }
+        String result = mapCountryCode.toString().contains(toFind)?'Country is present':'Country is not available';
+        System.debug(result);
     }
     
     /*
