@@ -24,11 +24,11 @@ public with sharing class ExternalId{
         
         for(Integer i = 0; i < results.size(); i++){
             if(results[i].isSuccess()){
-            System.debug('Successfully created ID: '+ results[i].getId());
+                System.debug('Successfully created ID: '+ results[i].getId());                                      //0015i00000A9hYwAAJ  //0035i000009CvBOAA0
             } 
             else{
-            System.debug('Error: could not create sobject '+ 'for array element ' + i + '.');
-            System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() + '\n');
+                System.debug('Error: could not create sobject '+ 'for array element ' + i + '.');
+                System.debug('The error reported was: '+ results[i].getErrors()[0].getMessage() + '\n');
             }
         }
     }

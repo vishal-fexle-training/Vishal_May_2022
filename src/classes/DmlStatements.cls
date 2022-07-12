@@ -11,9 +11,9 @@ public with sharing class DmlStatements{
       * Params        :    Integer size
       * Return        :    Void
     */
-    public void insertContacts(Integer size){
+    public void insertContacts(Integer size){                                                                 //2
         List<Contact> listContact =  new List<Contact>();
-        Account recAccount = [Select Name from Account where Name = 'Acme1'];
+        Account recAccount = [Select Id, Name from Account where Name = 'Acme1' limit 1];
 
         //Inserting Records
         for(Integer i=1 ;i<=size; i++){
@@ -30,8 +30,8 @@ public with sharing class DmlStatements{
 
         //Querying inserted records
         for(Contact recContact : [Select Name, Account.Name from Contact where Name like 'Con%']){
-            System.debug('Name : '+recContact.Name+', Account Name : '+recContact.Account.Name);
-        }       
+            System.debug('Name : '+recContact.Name+', Account Name : '+recContact.Account.Name);               //Name : Con 1, Account Name : Acme2 
+        }                                                                                                      //Name : Con 2, Account Name : Acme2
         
         //Deleteing Records
         delete listContact;
