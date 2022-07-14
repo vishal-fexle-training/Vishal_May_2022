@@ -12,7 +12,7 @@ public with sharing class ParentToChildQuery{
       * Return        :    Void
     */
     public void onStandardObject(){
-        for(Account recAccount : [Select Name,(Select FirstName, LastName from Contacts) from Account]){
+        for(Account recAccount : [Select Name,(Select FirstName, LastName From Contacts) From Account]){
             System.debug('Name : '+recAccount.Name);
 
             for(Contact recContact : recAccount.Contacts){
@@ -28,7 +28,7 @@ public with sharing class ParentToChildQuery{
       * Return        :    Void
     */
     public void onCustomObject(){
-        for(College__c recCollege : [Select Name, City__c, (Select Name from Teachers__r) from College__c]){
+        for(College__c recCollege : [Select Name, City__c, (Select Name From Teachers__r) From College__c]){
             System.debug('Name : '+recCollege.Name+', City : '+recCollege.City__c);
 
             for(Teacher__c recTeacher : recCollege.Teachers__r){

@@ -13,7 +13,7 @@ public with sharing class ChildToParentQuery{
     */
     public void onStandardObject(Integer size){
         List<Contact> listContact =  new List<Contact>();
-        Account recAccount = [Select Name from Account where Name = 'Acme1'];
+        Account recAccount = [Select Name From Account Where Name = 'Acme1' limit 1];
 
         //Inserting Records
         for(Integer i=1 ;i<=size; i++){
@@ -29,7 +29,7 @@ public with sharing class ChildToParentQuery{
         update listContact;
 
         //Querying inserted records
-        for(Contact recContact : [Select Name, Account.Name from Contact where Name like 'Con%']){
+        for(Contact recContact : [Select Name, Account.Name From Contact Where Name like 'Con%']){
             System.debug('Name : '+recContact.Name+', Account Name : '+recContact.Account.Name);
         }       
         
@@ -44,7 +44,7 @@ public with sharing class ChildToParentQuery{
       * Return        :    Void
     */
     public void onCustomObject(){
-        for(Teacher__c recTeacher : [Select Name, College__r.Name, College__r.City__c from Teacher__c]){
+        for(Teacher__c recTeacher : [Select Name, College__r.Name, College__r.City__c From Teacher__c]){
             System.debug('Name : '+recTeacher.Name+', College : '+recTeacher.College__r.Name+', City : '+recTeacher.College__r.City__c);
         }
     }
