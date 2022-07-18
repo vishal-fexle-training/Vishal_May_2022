@@ -124,6 +124,7 @@ public with sharing class CountriesAndDistrictsDynamic{
                         DistrictWrapper districtDetails = new DistrictWrapper();
                         districtDetails.districtName =  recDistrict.Name;
                         listdistrictDetails.add(districtDetails);
+                        listDistrict.add(recDistrict.Name);
                     }
                     
                     createMap(recState.Country__r.Name, recState.State_Name__c, listDistrict);
