@@ -7,26 +7,27 @@
 public with sharing class CountriesAndDistrictsDynamic{
     public List<State__c> listRecords = new List<State__c>();
     public List<Country__c> listRecordsCountry = new List<Country__c>();
+    public Map<String, Map<String, List<String>>> mapCountry = new Map<String, Map<String, List<String>>>();
     String dataJSON = '';
 
     /*
-      *  Purpose         :    Wrapper Class to store country details
+      *  Purpose         :    Wrapper Class to store Country details
       *  Created By      :    Vishal Tourani
       *  Created Date    :    2022/07/07
       *  Revision Logs   :    V_1.0 - Created - 2022/07/07
     */
-    public class Country{
-        Decimal countryCode{get; set;}
-        Decimal totalStates{get; set;}
-	    Decimal totalDistricts{get; set;}
-        Map<String, Map<String, List<String>>> mapHierarchy{get; set;}
+    public class CountryWrapper{
+        public Decimal countryCode{get; set;}
+        public Decimal totalStates{get; set;}
+	    public Decimal totalDistricts{get; set;}
+        public List<StateWrapper> listState = new List<StateWrapper>();
 
         /*
           * Created By    :    Vishal Tourani
-          * Purpose       :    When combination of country, state and district is found  
-          * Params        :    Decimal countryCode, String country, String state, List<String> district    
+          * Purpose       :    Contructor when country, state and district combination is found 
+          * Params        :    Decimal countryCode, String country, StateWrapper stateDetails    
         */
-        public Country(Decimal countryCode, String country, String state, List<String> district){
+        public CountryWrapper(Decimal countryCode, String country, StateWrapper stateDetails){
             this.countryCode = countryCode;
 
             AggregateResult aggTotalStates = [Select COUNT(State_Name__c) Total_States from State__c where Country__r.Name like :country
@@ -35,31 +36,59 @@ public with sharing class CountriesAndDistrictsDynamic{
 
             AggregateResult aggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.Country__r.Name like :country 
                                                  group by State__r.Country__r.Name limit 1];
-            this.totalDistricts = (Decimal)aggTotalDistricts.get('Total_Districts'); 
-            
-            Map<String, List<String>> mapState =  new Map<String, List<String>>();
-            mapState.put(state, district);
-            Map<String, Map<String, List<String>>> mapCountry =  new Map<String, Map<String, List<String>>>();
-            mapCountry.put(country, mapState);
-            this.mapHierarchy = mapCountry;
+            this.totalDistricts = (Decimal)aggTotalDistricts.get('Total_Districts');
+
+            this.listState.add(stateDetails);
         }
 
         /*
           * Created By    :    Vishal Tourani
-          * Purpose       :    When only country is found  
+          * Purpose       :    Contructor when country, state and district combination is not found 
           * Params        :    Decimal countryCode, String country    
         */
-        public Country(Decimal countryCode, String country){
+        public CountryWrapper(Decimal countryCode, String country){
             this.countryCode = countryCode;
-
+            
             AggregateResult aggTotalStates = [Select COUNT(State_Name__c) Total_States from State__c where Country__r.Name like :country
-                                              Group By Country__r.Name limit 1];
+                                              group by Country__r.Name limit 1];
             this.totalStates = (Decimal)aggTotalStates.get('Total_States');
 
             AggregateResult aggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.Country__r.Name like :country 
-                                                 Group By State__r.Country__r.Name limit 1];
+                                                 group by State__r.Country__r.Name limit 1];
             this.totalDistricts = (Decimal)aggTotalDistricts.get('Total_Districts');
         }
+    }
+
+    /*
+      *  Purpose         :    Wrapper Class to store State details
+      *  Created By      :    Vishal Tourani
+      *  Created Date    :    2022/07/07
+      *  Revision Logs   :    V_1.0 - Created - 2022/07/07
+    */
+    public class StateWrapper{
+        public String stateName{get; set;}
+        public Decimal totalDistricts{get; set;}
+        public List<DistrictWrapper> listDistrict = new List<DistrictWrapper>();
+
+        public StateWrapper(String stateName, List<DistrictWrapper> listDistrictDetails){
+            this.stateName = stateName;
+
+            AggregateResult aggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.State_Name__c like :stateName
+                                                 group by State__r.State_Name__c limit 1];
+            this.totalDistricts = (Decimal)aggTotalDistricts.get('Total_Districts');
+
+            this.listDistrict = listDistrictDetails;
+        }
+    }
+
+    /*
+      *  Purpose         :    Wrapper Class to store State details
+      *  Created By      :    Vishal Tourani
+      *  Created Date    :    2022/07/07
+      *  Revision Logs   :    V_1.0 - Created - 2022/07/07
+    */
+    public class DistrictWrapper{
+        public String districtName{get; set;}
     }
 
     public CountriesAndDistrictsDynamic(String startingCharacter){
@@ -78,7 +107,7 @@ public with sharing class CountriesAndDistrictsDynamic{
                 }
                 else{
                     for(Country__c recCountry: listRecordsCountry){
-                        Country countryDetails = new Country(recCountry.Country_Code__c, recCountry.Name);
+                        CountryWrapper countryDetails = new CountryWrapper(recCountry.Country_Code__c, recCountry.Name);
                 
                         dataJSON = Json.serialize(countryDetails);
                         recCountry.Country_Hierarchy__c = dataJSON;
@@ -89,12 +118,19 @@ public with sharing class CountriesAndDistrictsDynamic{
             else{
                 for(State__c recState : listRecords){
                     List<String> listDistrict = new List<String>();
-                    for(District__c recDistrict : recState.Districts__r){
-                        listDistrict.add(recDistrict.Name);
-                    } 
-                    Country countryDetails = new Country(recState.Country__r.Country_Code__c, recState.Country__r.Name, recState.State_Name__c, 
-                                                         listDistrict);
+                    List<DistrictWrapper> listdistrictDetails = new List<DistrictWrapper>();
 
+                    for(District__c recDistrict : recState.Districts__r){
+                        DistrictWrapper districtDetails = new DistrictWrapper();
+                        districtDetails.districtName =  recDistrict.Name;
+                        listdistrictDetails.add(districtDetails);
+                    }
+                    
+                    createMap(recState.Country__r.Name, recState.State_Name__c, listDistrict);
+                
+                    StateWrapper stateDetails = new StateWrapper(recState.State_Name__c, listdistrictDetails);
+                    CountryWrapper countryDetails = new CountryWrapper(recState.Country__r.Country_Code__c, recState.Country__r.Name,stateDetails);
+                    
                     dataJSON = Json.serialize(countryDetails);
                     recState.Country__r.Country_Hierarchy__c = dataJSON;  
                     listRecordsCountry.add(recState.Country__r);  
@@ -109,6 +145,17 @@ public with sharing class CountriesAndDistrictsDynamic{
         catch(CountryNotFoundException e){
             System.debug(e.getMessage());
         }    
+    }
+
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    This method will put values in map
+      * Params        :    String country, String state, List<String> district
+      * Return        :    Void
+    */
+    public void createMap(String country, String state, List<String> district){
+        Map<String, List<String>> mapState= new Map<String, List<String>>{state=>district};
+        mapCountry.put(country, mapState);
     }
 
     /*
@@ -134,7 +181,7 @@ public with sharing class CountriesAndDistrictsDynamic{
             count=count+'_';
         }
         List<District__c> listRecords = new List<District__c>();    
-        listRecords = [Select Name From District__c Where Name like :count+'%' ];
+        listRecords = [Select Name From District__c Where Name like :count+'%'];
 
         for(District__c recDistrict : listRecords){
             System.debug(recDistrict.Name);
