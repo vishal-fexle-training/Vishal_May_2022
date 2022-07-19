@@ -91,6 +91,12 @@
 	<types>
 		<members>Student__c-Registrar Layout</members>
 		<members>Student__c-Teacher Layout</members>
+		<members>College__c-College Layout</members>
+		<members>Country__c-Country Layout</members>
+		<members>District__c-District Layout</members>
+		<members>State__c-State Layout</members>
+		<members>Student__c-Student Layout</members>
+		<members>Teacher__c-Teacher Layout</members>
 		<name>Layout</name>
 	</types>
 	<version>53.0</version>
