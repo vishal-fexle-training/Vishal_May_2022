@@ -5,9 +5,9 @@
   *  Revision Logs   :    V_1.0 - Created - 2022/07/07
 */
 public with sharing class CountriesAndDistrictsDynamic{
-    public List<State__c> listRecords = new List<State__c>();
-    public List<Country__c> listRecordsCountry = new List<Country__c>();
-    public Map<String, Map<String, List<String>>> mapCountry = new Map<String, Map<String, List<String>>>();
+    public List<State__c> listState = new List<State__c>();
+    public List<Country__c> listCountry = new List<Country__c>();
+    public Map<String, Map<String, List<String>>> maoCountryStatesAndDistricts = new Map<String, Map<String, List<String>>>();
     String dataJSON = '';
 
     /*
@@ -17,10 +17,10 @@ public with sharing class CountriesAndDistrictsDynamic{
       *  Revision Logs   :    V_1.0 - Created - 2022/07/07
     */
     public class CountryWrapper{
-        public Decimal countryCode{get; set;}
-        public Decimal totalStates{get; set;}
-	    public Decimal totalDistricts{get; set;}
-        public List<StateWrapper> listState = new List<StateWrapper>();
+        Decimal countryCode{get; set;}
+        Decimal totalStates{get; set;}
+	    Decimal totalDistricts{get; set;}
+        List<StateWrapper> listState = new List<StateWrapper>();
 
         /*
           * Created By    :    Vishal Tourani
@@ -66,9 +66,9 @@ public with sharing class CountriesAndDistrictsDynamic{
       *  Revision Logs   :    V_1.0 - Created - 2022/07/07
     */
     public class StateWrapper{
-        public String stateName{get; set;}
-        public Decimal totalDistricts{get; set;}
-        public List<DistrictWrapper> listDistrict = new List<DistrictWrapper>();
+        String stateName{get; set;}
+        Decimal totalDistricts{get; set;}
+        List<DistrictWrapper> listDistrict = new List<DistrictWrapper>();
 
         public StateWrapper(String stateName, List<DistrictWrapper> listDistrictDetails){
             this.stateName = stateName;
@@ -82,7 +82,7 @@ public with sharing class CountriesAndDistrictsDynamic{
     }
 
     /*
-      *  Purpose         :    Wrapper Class to store State details
+      *  Purpose         :    Wrapper Class to store District details
       *  Created By      :    Vishal Tourani
       *  Created Date    :    2022/07/07
       *  Revision Logs   :    V_1.0 - Created - 2022/07/07
@@ -93,20 +93,20 @@ public with sharing class CountriesAndDistrictsDynamic{
 
     public CountriesAndDistrictsDynamic(String startingCharacter){
         //Query to find combination of country, state and districts
-        listRecords = [Select State_Name__c, Country__r.Country_Code__c, Country__r.Name, Country__r.Country_Hierarchy__c,
+        listState = [Select State_Name__c, Country__r.Country_Code__c, Country__r.Name, Country__r.Country_Hierarchy__c,
                       (Select Name From Districts__r Where Name like :startingCharacter+'%') From State__c 
                        Where State_Name__c like :startingCharacter+'%' and Country__r.Name like :startingCharacter+'%'];
         
         try{
-            if(listRecords.isEmpty()){
+            if(listState.isEmpty()){
                 //Query to find only country 
-                listRecordsCountry = [Select Country_Code__c, Name From Country__c Where Name like :startingCharacter+'%'];
+                listCountry = [Select Country_Code__c, Name From Country__c Where Name like :startingCharacter+'%'];
 
-                if(listRecordsCountry.isEmpty()){
+                if(listCountry.isEmpty()){
                     throw new CountryNotFoundException();
                 }
                 else{
-                    for(Country__c recCountry: listRecordsCountry){
+                    for(Country__c recCountry: listCountry){
                         CountryWrapper countryDetails = new CountryWrapper(recCountry.Country_Code__c, recCountry.Name);
                 
                         dataJSON = Json.serialize(countryDetails);
@@ -116,7 +116,7 @@ public with sharing class CountriesAndDistrictsDynamic{
                 }    
             }
             else{
-                for(State__c recState : listRecords){
+                for(State__c recState : listState){
                     List<String> listDistrict = new List<String>();
                     List<DistrictWrapper> listdistrictDetails = new List<DistrictWrapper>();
 
@@ -134,11 +134,11 @@ public with sharing class CountriesAndDistrictsDynamic{
                     
                     dataJSON = Json.serialize(countryDetails);
                     recState.Country__r.Country_Hierarchy__c = dataJSON;  
-                    listRecordsCountry.add(recState.Country__r);  
+                    listCountry.add(recState.Country__r);  
                     generateURL(recState.Country__r.id);
                 }
             }
-            update listRecordsCountry;     
+            update listCountry;     
         }
         catch(ListException e){
             System.debug('There is a problem with list : '+e.getMessage());
@@ -156,7 +156,7 @@ public with sharing class CountriesAndDistrictsDynamic{
     */
     public void createMap(String country, String state, List<String> district){
         Map<String, List<String>> mapState= new Map<String, List<String>>{state=>district};
-        mapCountry.put(country, mapState);
+        maoCountryStatesAndDistricts.put(country, mapState);
     }
 
     /*
@@ -181,10 +181,10 @@ public with sharing class CountriesAndDistrictsDynamic{
         for(Integer i=0; i<longestSize; i++){
             count=count+'_';
         }
-        List<District__c> listRecords = new List<District__c>();    
-        listRecords = [Select Name From District__c Where Name like :count+'%'];
+        List<District__c> listState = new List<District__c>();    
+        listState = [Select Name From District__c Where Name like :count+'%'];
 
-        for(District__c recDistrict : listRecords){
+        for(District__c recDistrict : listState){
             System.debug(recDistrict.Name);
         }
     }
