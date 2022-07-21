@@ -94,8 +94,8 @@ public with sharing class CountriesAndDistrictsDynamic{
     public CountriesAndDistrictsDynamic(String startingCharacter){
         //Query to find combination of country, state and districts
         listState = [Select State_Name__c, Country__r.Country_Code__c, Country__r.Name, Country__r.Country_Hierarchy__c,
-                      (Select Name From Districts__r Where Name like :startingCharacter+'%') From State__c 
-                       Where State_Name__c like :startingCharacter+'%' and Country__r.Name like :startingCharacter+'%'];
+                    (Select Name From Districts__r Where Name like :startingCharacter+'%') From State__c 
+                     Where State_Name__c like :startingCharacter+'%' and Country__r.Name like :startingCharacter+'%'];
         
         try{
             if(listState.isEmpty()){
@@ -184,6 +184,7 @@ public with sharing class CountriesAndDistrictsDynamic{
         List<District__c> listState = new List<District__c>();    
         listState = [Select Name From District__c Where Name like :count+'%'];
 
+        System.debug('List of districts with length '+longestSize);
         for(District__c recDistrict : listState){
             System.debug(recDistrict.Name);
         }
