@@ -14,8 +14,8 @@ public with sharing class TriggerHelperClass{
     public static void triggerInsertDisplayRecords(List<Account> newAcc){
         System.debug('Newly inserted record is');
         for(Account recAcc : newAcc){
-            System.debug('Name of Account : '+recAcc.Name);
-            System.debug('Account Number : '+recAcc.AccountNumber);
+            System.debug('Name of Account : '+recAcc.Name);                                                             //Acme 3
+            System.debug('Account Number : '+recAcc.AccountNumber);                                                     //753159869654
         }
     }
     
@@ -28,14 +28,14 @@ public with sharing class TriggerHelperClass{
     public static void triggerUpdateDisplayRecords(List<Account> oldAcc, List<Account> newAcc){
         System.debug('Before updation value was');
         for(Account recAcc : oldAcc){
-            System.debug('Name of Account : '+recAcc.Name);
-            System.debug('Account Number : '+recAcc.AccountNumber);
+            System.debug('Name of Account : '+recAcc.Name);                                                             //Acme 3
+            System.debug('Account Number : '+recAcc.AccountNumber);                                                     //753159869654                                               
         }
 
         System.debug('Updated record value is');
         for(Account recAcc : newAcc){
-            System.debug('Name of Account : '+recAcc.Name);
-            System.debug('Account Number : '+recAcc.AccountNumber);
+            System.debug('Name of Account : '+recAcc.Name);                                                             //Acme 3
+            System.debug('Account Number : '+recAcc.AccountNumber);                                                     //845695478952
         }
     }
 
