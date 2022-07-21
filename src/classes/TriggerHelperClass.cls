@@ -49,7 +49,7 @@ public with sharing class TriggerHelperClass{
         List<Messaging.SingleEmailMessage> listMail = new List<Messaging.SingleEmailMessage>();
 
         for(Account recAcc : newAcc){
-            if(recAcc.MailID__c != null){
+            if(recAcc.MailID__c != null && recAcc.AccountNumber != null){
                 Messaging.SingleEmailMessage mail =  new Messaging.SingleEmailMessage();
                 mail.setToAddresses(new List<String>{recAcc.MailID__c});
                 mail.setSubject('Account is created');

@@ -13,6 +13,8 @@ trigger Trigger_Opportunity on Opportunity (before insert, before update, before
     System.debug('Check is undelete : '+Trigger.isUndelete);                //flase                     //false
     System.debug('Check Operation type : '+Trigger.operationType);          //BEFORE_INSERT             //AFTER_INSERT
     System.debug('Check size of records : '+Trigger.size);                  //1                         //1
-    System.debug('Checking new records : '+Trigger.new);                    //Id=0065i000005m6hqAAA     //Id=0065i000005m6hqAAA 
+    System.debug('Checking new records : '+Trigger.new);                    //Id=null                   //Id=0065i000005mA16AAE 
     System.debug('Checking old records : '+Trigger.old);                    //null                      //null
+    System.debug('Checking new records map : '+Trigger.newMap);             //null                      //0065i000005mA16AAE
+    System.debug('Checking old records map : '+Trigger.oldMap);             //null                      //null
 }
