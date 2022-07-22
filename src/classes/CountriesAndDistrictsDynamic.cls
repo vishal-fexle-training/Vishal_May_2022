@@ -7,7 +7,7 @@
 public with sharing class CountriesAndDistrictsDynamic{
     public List<State__c> listState = new List<State__c>();
     public List<Country__c> listCountry = new List<Country__c>();
-    public Map<String, Map<String, List<String>>> maoCountryStatesAndDistricts = new Map<String, Map<String, List<String>>>();
+    public Map<String, Map<String, List<String>>> mapCountryWithStatesAndDistricts = new Map<String, Map<String, List<String>>>();
     String dataJSON = '';
 
     /*
@@ -150,13 +150,13 @@ public with sharing class CountriesAndDistrictsDynamic{
 
     /*
       * Created By    :    Vishal Tourani
-      * Purpose       :    This method will put values in map
+      * Purpose       :    This method will put values in country, state and district map
       * Params        :    String country, String state, List<String> district
       * Return        :    Void
     */
     public void createMap(String country, String state, List<String> district){
-        Map<String, List<String>> mapState= new Map<String, List<String>>{state=>district};
-        maoCountryStatesAndDistricts.put(country, mapState);
+        Map<String, List<String>> mapStateAndDistricts= new Map<String, List<String>>{state=>district};
+        mapCountryWithStatesAndDistricts.put(country, mapStateAndDistricts);
     }
 
     /*
