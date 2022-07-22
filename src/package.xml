@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
+		<members>TriggerHelperClass</members>
 		<members>DatabaseMethods</members>
         <members>DmlStatements</members>
         <members>ExceptionHandling</members>
@@ -43,6 +44,8 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
+		<members>Trigger_Account</members>
+        <members>Trigger_Opportunity</members>
 		<members>HelloWorldTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
@@ -51,6 +54,7 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>Account.MailID__c</members>
         <members>Account.MyExtID__c</members>
         <name>CustomField</name>
     </types>
@@ -83,5 +87,10 @@
 		<members>Student__c-Teacher Layout</members>
 		<name>Layout</name>
 	</types>
+	<types>
+        <members>Account.Axis_Bank</members>
+        <members>Account.Default</members>
+        <name>RecordType</name>
+    </types>
 	<version>53.0</version>
 </Package>
