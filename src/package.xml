@@ -45,7 +45,7 @@
 	</types>
 	<types>
 		<members>Trigger_Account</members>
-        <members>Trigger_Opportunity</members>
+        <members>Trigger_Country</members>
 		<members>HelloWorldTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
