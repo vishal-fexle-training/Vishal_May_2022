@@ -4,7 +4,7 @@
   *  Created Date    :    2022/07/19
   *  Revision Logs   :    V_1.0 - Created - 2022/07/19
 */
-public with sharing class TriggerHelperClass{
+public with sharing class AccountTriggerHelper{
     /*
       * Created By    :    Vishal Tourani
       * Purpose       :    Method to be called if Account records are inserted
@@ -14,8 +14,13 @@ public with sharing class TriggerHelperClass{
     public static void triggerInsertDisplayRecords(List<Account> newAcc){
         System.debug('Newly inserted record is');
         for(Account recAcc : newAcc){
-            System.debug('Name of Account : '+recAcc.Name);                                                             //Acme 3
-            System.debug('Account Number : '+recAcc.AccountNumber);                                                     //753159869654
+            /*
+            recAcc.Test_Value__c = 10;
+            Allowed in BEFORE_TRIGGER 
+            Not allowed in AFTER_TRIGGER because in AFTER_TRIGGER Trigger.New is read-only 
+            Exception - System.FinalException: Record is read-only
+            */
+            System.debug('New Account : '+recAcc);                                                  //New Account : Account:{Id=null, Name=Acme 3, Type=Savings, RecordTypeId=0125i000000QA9dAAG}
         }
     }
     
@@ -28,14 +33,23 @@ public with sharing class TriggerHelperClass{
     public static void triggerUpdateDisplayRecords(List<Account> oldAcc, List<Account> newAcc){
         System.debug('Before updation value was');
         for(Account recAcc : oldAcc){
-            System.debug('Name of Account : '+recAcc.Name);                                                             //Acme 3
-            System.debug('Account Number : '+recAcc.AccountNumber);                                                     //753159869654                                               
+            /*
+            recAcc.Test_Value__c = 20;
+            Trigger.old is always read-only.
+            Exception - System.FinalException: Record is read-only
+            */
+            System.debug('Old Account : '+recAcc);                                                  //Old Account : Account:{Id=0015i00000Kk40dAAB, Name=Acme 3, Type=Savings, RecordTypeId=0125i000000QA9dAAG}                                        
         }
 
         System.debug('Updated record value is');
         for(Account recAcc : newAcc){
-            System.debug('Name of Account : '+recAcc.Name);                                                             //Acme 3
-            System.debug('Account Number : '+recAcc.AccountNumber);                                                     //845695478952
+            /*
+            recAcc.Test_Value__c = 30;
+            Allowed in BEFORE_TRIGGER 
+            Not allowed in AFTER_TRIGGER because in AFTER_TRIGGER Trigger.New is read-only
+            Exception - System.FinalException: Record is read-only
+            */
+            System.debug('New Account : '+recAcc);                                                  //New Account : Account:{Id=0015i00000Kk40dAAB, Name=Acme 4, Type=Savings, RecordTypeId=0125i000000QA9dAAG}
         }
     }
 
