@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
-		<members>Account.Notebook__c</members>
-		<members>Book__c.Account_Number__c</members>
-		<name>CustomField</name>
-	</types>
-	<types>
+    <members>AccountTriggerHelper</members>
 		<members>CountriesAndDistricts</members>
 		<members>TypeCastSobject</members>
 		<members>ChildToParentQuery</members>
@@ -54,6 +50,8 @@
 		<name>ApexClass</name>
 	</types>
 	<types>
+		<members>Trigger_Account</members>
+    <members>Trigger_Country</members>
 		<members>HelloWorldTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
@@ -62,11 +60,15 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
-		<members>Notebook__c</members>
+    <members>Account.Notebook__c</members>
+		<members>Book__c.Account_Number__c</members>
+		<members>Account.MailID__c</members>
     <members>Account.MyExtID__c</members>
+		<members>Account.Test_Value__c</members>
     <name>CustomField</name>
   </types>
 	<types>
+    <members>Notebook__c</members>
 		<members>Book__c</members>
 		<members>Country__c</members>
     <members>District__c</members>
@@ -116,5 +118,10 @@
 		<members>Teacher__c-Teacher Layout</members>
 		<name>Layout</name>
 	</types>
+	<types>
+    <members>Account.Axis_Bank</members>
+    <members>Account.Default</members>
+    <name>RecordType</name>
+  </types>
 	<version>53.0</version>
 </Package>
