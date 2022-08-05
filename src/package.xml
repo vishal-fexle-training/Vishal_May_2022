@@ -9,9 +9,11 @@
 		<members>Opportunity.Automobile_Tag_Details_3__c</members>
 		<members>Opportunity.Return_To_HQ__c</members>
 		<members>Opportunity.Shipment_Account__c</members>
+		<members>Opportunity.StageName</members>
 		<name>CustomField</name>
 	</types>
 	<types>
+		<members>Constants</members>
 		<members>OpportunityTriggerHelper</members>
 		<members>CountriesAndDistricts</members>
 		<members>TypeCastSobject</members>
@@ -93,6 +95,10 @@
 		<name>CustomObject</name>
 	</types>
 	<types>
+		<members>Automobile_Presence_Sensor__c</members>
+        <members>Automobile_Sensor__c</members>
+        <members>Automobile_TDU__c</members>
+        <members>Automobile_Tag__c</members>
 		<members>Notebook__c</members>
 		<members>Book__c</members>
 		<members>College__c</members>
@@ -124,5 +130,10 @@
 		<members>Teacher__c-Teacher Layout</members>
 		<name>Layout</name>
 	</types>
+	<types>
+		<members>AccountType</members>
+        <members>OpportunityStage</members>
+        <name>StandardValueSet</name>
+    </types>
 	<version>53.0</version>
 </Package>
