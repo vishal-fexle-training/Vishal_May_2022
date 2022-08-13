@@ -30,14 +30,26 @@ public with sharing class CountriesAndDistrictsDynamic{
         public CountryWrapper(Decimal countryCode, String country, StateWrapper stateDetails){
             this.countryCode = countryCode;
 
-            AggregateResult aggTotalStates = [Select COUNT(State_Name__c) Total_States from State__c where Country__r.Name like :country
-                                              group by Country__r.Name limit 1];
-            this.totalStates = (Decimal)aggTotalStates.get('Total_States');
+            List<AggregateResult> listAggTotalStates = [Select COUNT(State_Name__c) Total_States from State__c where Country__r.Name like :country
+                                                        group by Country__r.Name limit 1];
 
-            AggregateResult aggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.Country__r.Name like :country 
-                                                 group by State__r.Country__r.Name limit 1];
-            this.totalDistricts = (Decimal)aggTotalDistricts.get('Total_Districts');
+            if(!listAggTotalStates.isEmpty()){
+                this.totalStates = (Decimal)listAggTotalStates[0].get('Total_States');
+            }
+            else{
+                this.totalStates = 0;
+            }
+        
+            List<AggregateResult> listAggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.Country__r.Name like :country 
+                                                           group by State__r.Country__r.Name limit 1];
 
+            if(!listAggTotalDistricts.isEmpty()){
+                this.totalDistricts = (Decimal)listAggTotalDistricts[0].get('Total_Districts');
+            }
+            else{
+                this.totalDistricts = 0;
+            }        
+            
             this.listState.add(stateDetails);
         }
 
@@ -49,13 +61,23 @@ public with sharing class CountriesAndDistrictsDynamic{
         public CountryWrapper(Decimal countryCode, String country){
             this.countryCode = countryCode;
             
-            AggregateResult aggTotalStates = [Select COUNT(State_Name__c) Total_States from State__c where Country__r.Name like :country
-                                              group by Country__r.Name limit 1];
-            this.totalStates = (Decimal)aggTotalStates.get('Total_States');
+            List<AggregateResult> listAggTotalStates = [Select COUNT(State_Name__c) Total_States from State__c where Country__r.Name like :country
+                                                        group by Country__r.Name limit 1];
+            if(!listAggTotalStates.isEmpty()){
+                this.totalStates = (Decimal)listAggTotalStates[0].get('Total_States');
+            }
+            else{
+                this.totalStates = 0;
+            }
 
-            AggregateResult aggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.Country__r.Name like :country 
-                                                 group by State__r.Country__r.Name limit 1];
-            this.totalDistricts = (Decimal)aggTotalDistricts.get('Total_Districts');
+            List<AggregateResult> listAggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.Country__r.Name like :country 
+                                                           group by State__r.Country__r.Name limit 1];
+            if(!listAggTotalDistricts.isEmpty()){
+                this.totalDistricts = (Decimal)listAggTotalDistricts[0].get('Total_Districts');
+            }
+            else{
+                this.totalDistricts = 0;
+            }
         }
     }
 
@@ -73,11 +95,18 @@ public with sharing class CountriesAndDistrictsDynamic{
         public StateWrapper(String stateName, List<DistrictWrapper> listDistrictDetails){
             this.stateName = stateName;
 
-            AggregateResult aggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.State_Name__c like :stateName
-                                                 group by State__r.State_Name__c limit 1];
-            this.totalDistricts = (Decimal)aggTotalDistricts.get('Total_Districts');
-
-            this.listDistrict = listDistrictDetails;
+            if(!listDistrictDetails.isEmpty()){
+                List<AggregateResult> listAggTotalDistricts = [Select COUNT(Name) Total_Districts from District__c where State__r.State_Name__c like :stateName
+                                                           group by State__r.State_Name__c limit 1];
+                
+                if(!listAggTotalDistricts.isEmpty()){
+                    this.totalDistricts = (Decimal)listAggTotalDistricts[0].get('Total_Districts');
+                }
+                else{
+                    this.totalDistricts = 0;
+                }
+                this.listDistrict = listDistrictDetails;
+            }
         }
     }
 
