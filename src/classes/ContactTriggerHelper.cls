@@ -2,9 +2,16 @@
   *  Purpose         :    Helper class for Contact trigger
   *  Created By      :    Vishal Tourani
   *  Created Date    :    2022/08/09
-  *  Revision Logs   :    V_1.0 - Created - 2022/08/09
+  *  Revision Logs   :    V_1.0 - Created - 2022/08/10
 */
 public with sharing class ContactTriggerHelper{
+
+    /*
+      * Created By    :    Vishal Tourani
+      * Purpose       :    Method to update status field on contact
+      * Params        :    List<District__c> oldList
+      * Return        :    Void
+    */
     public static void updateStatus(List<Contact> newList){
         List<Contact> listContactWithoutStatus = new List<Contact>();
         Set<Id> setAccountId = new Set<Id>();

@@ -113,7 +113,6 @@ public with sharing class DistrictTriggerHelper{
       * Return        :    Void
     */
     public static void reduceDistrictCount(List<District__c> oldList){
-        System.debug('***************');
         Map<Id, Integer> mapStateWithDistrictCount = new Map<Id, Integer>();
         Map<Id, Integer> mapCountryWithDistrictCount = new Map<Id, Integer>();
 

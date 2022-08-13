@@ -2,7 +2,7 @@
   *  Purpose         :    Class to insert Country, State and Districts details
   *  Created By      :    Vishal Tourani
   *  Created Date    :    2022/07/07
-  *  Revision Logs   :    V_1.0 - Created - 2022/07/07
+  *  Revision Logs   :    V_2.0 - Created - 2022/08/10
 */
 public with sharing class CountriesAndDistrictsDynamic{
     public List<State__c> listState = new List<State__c>();
