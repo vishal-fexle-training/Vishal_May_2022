@@ -10,13 +10,13 @@ trigger Trigger_Opportunity on Opportunity (before insert, after insert, before 
     if(Trigger.isAfter){
         if(Trigger.isInsert){
             OpportunityTriggerHelper.createAutomobileRecords(Trigger.new, Trigger.oldMap);
-            //OpportunityTriggerHelper.checkStageName(Trigger.new, Trigger.oldMap);
+            OpportunityTriggerHelper.checkStageName(Trigger.new, Trigger.oldMap);
             OpportunityTriggerHelper.sendMail(Trigger.new, Trigger.oldMap);
 
         }
         if(Trigger.isUpdate){
             OpportunityTriggerHelper.createAutomobileRecords(Trigger.new, Trigger.oldMap); 
-            //OpportunityTriggerHelper.checkStageName(Trigger.new, Trigger.oldMap);
+            OpportunityTriggerHelper.checkStageName(Trigger.new, Trigger.oldMap);
             OpportunityTriggerHelper.sendMail(Trigger.new, Trigger.oldMap);
         }
     }
