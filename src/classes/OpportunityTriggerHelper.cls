@@ -114,9 +114,7 @@ public with sharing class OpportunityTriggerHelper{
                 splitAndAddAutomobiles(newOpportunity, mapAutomobileWithOpportunity);
             }
         }
-
-        
-            
+   
         if(!mapAutomobileWithOpportunity.isEmpty()){
             List<Sobject> listAutomobile = new List<Sobject>();
             listAutomobile.addAll([Select Name from Automobile_Presence_Sensor__c where Name In :mapAutomobileWithOpportunity.keySet()]);
