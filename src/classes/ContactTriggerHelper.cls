@@ -2,7 +2,7 @@
   *  Purpose         :    Helper class for Contact trigger
   *  Created By      :    Vishal Tourani
   *  Created Date    :    2022/08/09
-  *  Revision Logs   :    V_1.0 - Created - 2022/08/09
+  *  Revision Logs   :    V_1.0 - Created - 2022/08/10
 */
 public with sharing class ContactTriggerHelper{
     public static void updateStatus(List<Contact> newList){
