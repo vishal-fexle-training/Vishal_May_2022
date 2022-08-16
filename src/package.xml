@@ -66,6 +66,7 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>Account.Property__c</members>
 		<members>Account.Status__c</members>
         <members>Contact.Status__c</members>
         <members>Country__c.Number_of_District__c</members>
