@@ -25,16 +25,24 @@ public with sharing class StateTriggerHelper{
                         mapCountryWithStateCount.put(newState.Country__c, count + 1);
 
                         //For District
-                        Integer districtCount = (Integer)newState.Number_of_District__c;
-                        Integer districtCountFromMap = mapCountryWithDistrictCount.get(newState.Country__c);
-                        mapCountryWithDistrictCount.put(newState.Country__c, districtCount + districtCountFromMap);
+                        if(newState.Number_of_District__c != null && newState.Number_of_District__c > 0 &&  mapCountryWithDistrictCount.containsKey((newState.Country__c))){
+                            Integer districtCount = (Integer)newState.Number_of_District__c;
+                            Integer districtCountFromMap = mapCountryWithDistrictCount.get(newState.Country__c);
+                            mapCountryWithDistrictCount.put(newState.Country__c, districtCount + districtCountFromMap);
+                        }
+                        else if(newState.Number_of_District__c != null && newState.Number_of_District__c > 0){
+                            Integer districtCount = (Integer)newState.Number_of_District__c;
+                            mapCountryWithDistrictCount.put(newState.Country__c, districtCount);
+                        }
                     }
                     else{
                         mapCountryWithStateCount.put(newState.Country__c, 1);
 
                         //For District
-                        Integer districtCount = (Integer)newState.Number_of_District__c;
-                        mapCountryWithDistrictCount.put(newState.Country__c, districtCount);
+                        if(newState.Number_of_District__c != null && newState.Number_of_District__c > 0){
+                            Integer districtCount = (Integer)newState.Number_of_District__c;
+                            mapCountryWithDistrictCount.put(newState.Country__c, districtCount);
+                        }
                     }
 
                     if(mapCountryWithStateCount.containsKey(oldMap.get(newState.Id).Country__c)){
@@ -42,16 +50,24 @@ public with sharing class StateTriggerHelper{
                         mapCountryWithStateCount.put(oldMap.get(newState.Id).Country__c, count -1);
 
                         //For District
-                        Integer districtCount = (Integer)oldMap.get(newState.Id).Number_of_District__c;
-                        Integer districtCountFromMap = mapCountryWithDistrictCount.get(oldMap.get(newState.Id).Country__c);
-                        mapCountryWithDistrictCount.put(oldMap.get(newState.Id).Country__c, districtCountFromMap - districtCount);
+                        if(oldMap.get(newState.Id).Number_of_District__c != null && oldMap.get(newState.Id).Number_of_District__c > 0 && mapCountryWithDistrictCount.containsKey(oldMap.get(newState.Id).Country__c)){
+                            Integer districtCount = (Integer)oldMap.get(newState.Id).Number_of_District__c;
+                            Integer districtCountFromMap = mapCountryWithDistrictCount.get(oldMap.get(newState.Id).Country__c);
+                            mapCountryWithDistrictCount.put(oldMap.get(newState.Id).Country__c, districtCountFromMap - districtCount);       
+                        }
+                        else if(oldMap.get(newState.Id).Number_of_District__c != null && oldMap.get(newState.Id).Number_of_District__c > 0){
+                            Integer districtCount = (Integer)oldMap.get(newState.Id).Number_of_District__c;
+                            mapCountryWithDistrictCount.put(oldMap.get(newState.Id).Country__c, -districtCount);
+                        }
                     }
                     else{
                         mapCountryWithStateCount.put(oldMap.get(newState.Id).Country__c, -1);
 
                         //For District
-                        Integer districtCount = (Integer)oldMap.get(newState.Id).Number_of_District__c;
-                        mapCountryWithDistrictCount.put(oldMap.get(newState.Id).Country__c, -districtCount);
+                        if(oldMap.get(newState.Id).Number_of_District__c != null && oldMap.get(newState.Id).Number_of_District__c > 0){
+                            Integer districtCount = (Integer)oldMap.get(newState.Id).Number_of_District__c;
+                            mapCountryWithDistrictCount.put(oldMap.get(newState.Id).Country__c, -districtCount);
+                        }
                     }
                 }
             }
@@ -132,12 +148,12 @@ public with sharing class StateTriggerHelper{
                 Integer count =  mapCountryWithStateCount.get(recState.Country__c);
                 mapCountryWithStateCount.put(recState.Country__c, count - 1);
 
-                if(recState.Number_of_District__c != null && mapCountryWithDistrictCount.containsKey(recState.Country__c)){
+                if(recState.Number_of_District__c != null && recState.Number_of_District__c > 0 && mapCountryWithDistrictCount.containsKey(recState.Country__c)){
                     Integer districtCount = mapCountryWithDistrictCount.get(recState.Country__c);
                     districtCount = districtCount - (Integer)recState.Number_of_District__c;
                     mapCountryWithDistrictCount.put(recState.Country__c, -districtCount);    
                 }
-                else if(recState.Number_of_District__c != null){
+                else if(recState.Number_of_District__c != null && recState.Number_of_District__c > 0){
                     Integer districtCount = (Integer)recState.Number_of_District__c;
                     mapCountryWithDistrictCount.put(recState.Country__c, -districtCount);    
                 }
@@ -145,7 +161,7 @@ public with sharing class StateTriggerHelper{
             else{
                 mapCountryWithStateCount.put(recState.Country__c, -1);
 
-                if(recState.Number_of_District__c != null){
+                if(recState.Number_of_District__c != null && recState.Number_of_District__c > 0){
                     Integer districtCount = (Integer)recState.Number_of_District__c;
                     mapCountryWithDistrictCount.put(recState.Country__c, -districtCount);
                 }
