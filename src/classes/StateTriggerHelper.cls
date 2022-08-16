@@ -59,9 +59,25 @@ public with sharing class StateTriggerHelper{
                 if(mapCountryWithStateCount.containsKey(newState.Country__c)){
                     Integer count = mapCountryWithStateCount.get(newState.Country__c);
                     mapCountryWithStateCount.put(newState.Country__c, count + 1);
+
+                    if(newState.Number_of_District__c != null && mapCountryWithDistrictCount.containsKey(newState.Country__c)){
+                        Integer districtCount = mapCountryWithDistrictCount.get(newState.Country__c);
+                        districtCount = districtCount + (Integer)newState.Number_of_District__c;
+                        mapCountryWithDistrictCount.put(newState.Country__c, districtCount);
+                    }
+                    else if(newState.Number_of_District__c != null){
+                        Integer districtCount = (Integer)newState.Number_of_District__c;
+                        mapCountryWithDistrictCount.put(newState.Country__c, districtCount);    
+                    }
+
                 }
                 else{
                     mapCountryWithStateCount.put(newState.Country__c, 1);
+
+                    if(newState.Number_of_District__c != null){
+                        Integer districtCount = (Integer)newState.Number_of_District__c;
+                        mapCountryWithDistrictCount.put(newState.Country__c, districtCount);
+                    }
                 }
             }
         }
@@ -115,9 +131,24 @@ public with sharing class StateTriggerHelper{
             if(mapCountryWithStateCount.containsKey(recState.Country__c)){
                 Integer count =  mapCountryWithStateCount.get(recState.Country__c);
                 mapCountryWithStateCount.put(recState.Country__c, count - 1);
+
+                if(recState.Number_of_District__c != null && mapCountryWithDistrictCount.containsKey(recState.Country__c)){
+                    Integer districtCount = mapCountryWithDistrictCount.get(recState.Country__c);
+                    districtCount = districtCount - (Integer)recState.Number_of_District__c;
+                    mapCountryWithDistrictCount.put(recState.Country__c, -districtCount);    
+                }
+                else if(recState.Number_of_District__c != null){
+                    Integer districtCount = (Integer)recState.Number_of_District__c;
+                    mapCountryWithDistrictCount.put(recState.Country__c, -districtCount);    
+                }
             }
             else{
                 mapCountryWithStateCount.put(recState.Country__c, -1);
+
+                if(recState.Number_of_District__c != null){
+                    Integer districtCount = (Integer)recState.Number_of_District__c;
+                    mapCountryWithDistrictCount.put(recState.Country__c, -districtCount);
+                }
             }
         }
 
@@ -127,6 +158,11 @@ public with sharing class StateTriggerHelper{
         for(Country__c recCountry : listCountry){
             Integer count = mapCountryWithStateCount.get(recCountry.Id);
             recCountry.Number_of_State__c = recCountry.Number_of_State__c + count;
+
+            if(!mapCountryWithDistrictCount.isEmpty()){
+                Integer districtCount = mapCountryWithDistrictCount.get(recCountry.Id);
+                recCountry.Number_of_District__c = recCountry.Number_of_District__c + districtCount;
+            }
         }
 
         if(!listCountry.isEmpty()){
