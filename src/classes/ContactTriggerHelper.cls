@@ -5,7 +5,6 @@
   *  Revision Logs   :    V_1.0 - Created - 2022/08/10
 */
 public with sharing class ContactTriggerHelper{
-    public static Boolean updateContact = true;
 
     /*
       * Created By    :    Vishal Tourani
@@ -17,14 +16,11 @@ public with sharing class ContactTriggerHelper{
         List<Contact> listContactWithoutStatus = new List<Contact>();
         Set<Id> setAccountId = new Set<Id>();
         Map<Id, Account> mapAccount;
-        List<Account> listAccount = new List<Account>();
 
         for(Contact newContact : newList){
-            if(newContact.Status__c == null){
-                if(newContact.AccountId != null){
-                    setAccountId.add(newContact.AccountId);
-                    listContactWithoutStatus.add(newContact);
-                }
+            if(newContact.Status__c == null && newContact.AccountId != null){
+                setAccountId.add(newContact.AccountId);
+                listContactWithoutStatus.add(newContact);
             }
         }
 
@@ -35,19 +31,16 @@ public with sharing class ContactTriggerHelper{
                 if(mapAccount.get(newContact.AccountId).Status__c != null){
                     newContact.Status__c =  mapAccount.get(newContact.AccountId).Status__c;   
                 }
-                else{
-                    if(mapAccount.get(newContact.AccountId).Property__r.Status__c != null){
-                        mapAccount.get(newContact.AccountId).Status__c = mapAccount.get(newContact.AccountId).Property__r.Status__c;
-                        newContact.Status__c = mapAccount.get(newContact.AccountId).Property__r.Status__c;
-
-                        listAccount.add(mapAccount.get(newContact.AccountId));
-                    }
+                else if(mapAccount.get(newContact.AccountId).Property__r.Status__c != null){
+                    Constants.restrictAccountChange = false;
+                    mapAccount.get(newContact.AccountId).Status__c = mapAccount.get(newContact.AccountId).Property__r.Status__c;
+                    
+                    newContact.Status__c = mapAccount.get(newContact.AccountId).Property__r.Status__c;
                 }
             }
         }
-
-        if(!listAccount.isEmpty()){
-            Update listAccount;
+        if(Constants.restrictAccountChange == false){
+            Update mapAccount.values();
         }
     }
     
@@ -58,37 +51,34 @@ public with sharing class ContactTriggerHelper{
       * Return        :    Void
     */
     public static void updateAccountAndPropertyStatus(List<Contact> newList, Map<Id, Contact> oldMap){
-        if(updateContact){
-            Map<Id, String> mapAccountIdWithStatus = new Map<Id, String>();
+        Map<Id, String> mapAccountIdWithStatus = new Map<Id, String>();
 
-            for(Contact newContact : newList){
-                if(newContact.Status__c != oldMap.get(newContact.Id).Status__c){
-                    mapAccountIdWithStatus.put(newContact.AccountId, newContact.Status__c);
-                }
+        for(Contact newContact : newList){
+            if(newContact.Status__c != oldMap.get(newContact.Id).Status__c){
+                mapAccountIdWithStatus.put(newContact.AccountId, newContact.Status__c);
             }
+        }
 
-            if(!mapAccountIdWithStatus.isEmpty()){
-                AccountTriggerHelper.updateProperty = false;
-                PropertyTriggerHelper.updateAccount = false;
+        if(!mapAccountIdWithStatus.isEmpty()){
+            Constants.restrictAccountChange = false;
+            Constants.restrictPropertyChange = false;
 
-                List<Account> listAccount = [Select Id, Status__c, Property__r.Status__c from Account where Id IN :mapAccountIdWithStatus.keySet()];
-                Set<Property__c> setProperty = new Set<Property__c>();
+            List<Account> listAccount = [Select Id, Status__c, Property__r.Status__c from Account where Id IN :mapAccountIdWithStatus.keySet()];
+            Set<Property__c> setProperty = new Set<Property__c>();
 
-                if(!listAccount.isEmpty()){
-                    for(Account recAccount : listAccount){
-                        recAccount.Status__c = mapAccountIdWithStatus.get(recAccount.Id);
+            if(!listAccount.isEmpty()){
+                for(Account recAccount : listAccount){
+                    recAccount.Status__c = mapAccountIdWithStatus.get(recAccount.Id);
 
-                        if(recAccount.Property__r.Status__c != null){
-                            recAccount.Property__r.Status__c = mapAccountIdWithStatus.get(recAccount.Id);
-                            setProperty.add(recAccount.Property__r);
-                        }
+                    if(recAccount.Property__r.Status__c != null){
+                        recAccount.Property__r.Status__c = mapAccountIdWithStatus.get(recAccount.Id);
+                        setProperty.add(recAccount.Property__r);
                     }
+                }
+                update listAccount;
 
-                    update listAccount;
-
-                    if(!setProperty.isEmpty()){
-                        update new List<Property__c>(setProperty);
-                    }
+                if(!setProperty.isEmpty()){
+                    update new List<Property__c>(setProperty);
                 }
             }
         }

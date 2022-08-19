@@ -13,7 +13,9 @@ trigger Trigger_Contact on Contact (before insert, before update, before delete,
     }
     if(Trigger.isAfter){
         if(Trigger.isUpdate){
-            ContactTriggerHelper.updateAccountAndPropertyStatus(Trigger.new, Trigger.oldMap);
+            if(Constants.restricContactChange){
+                ContactTriggerHelper.updateAccountAndPropertyStatus(Trigger.new, Trigger.oldMap);
+            }
         }
     }
 }

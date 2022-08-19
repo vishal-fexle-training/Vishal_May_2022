@@ -19,7 +19,9 @@ trigger Trigger_Account on Account (before insert, before update, before delete,
         }
         if(Trigger.isUpdate){
             AccountTriggerHelper.triggerUpdateDisplayRecords(Trigger.old, Trigger.new);
-            AccountTriggerHelper.updateContactStatus(Trigger.new, Trigger.oldMap);
+            if(Constants.restrictAccountChange){
+                AccountTriggerHelper.updatePropertyAndContactStatus(Trigger.new, Trigger.oldMap);
+            }
         }
     }
 }

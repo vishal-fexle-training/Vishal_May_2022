@@ -6,7 +6,6 @@
 */
 public with sharing class AccountTriggerHelper{
     public static Boolean flag = true;
-    public static Boolean updateProperty = true;
     
     /*
       * Created By    :    Vishal Tourani
@@ -142,24 +141,24 @@ public with sharing class AccountTriggerHelper{
       * Params        :    List<Account> newList, Map<Id, Account> oldMap
       * Return        :    Void
     */
-    public static void updateContactStatus(List<Account> newList, Map<Id, Account> oldMap){
-        if(PropertyTriggerHelper.updateAccount){
-            Map<Id, String> mapAccountIdWithStatus = new Map<Id, String>();
+    public static void updatePropertyAndContactStatus(List<Account> newList, Map<Id, Account> oldMap){
+        Map<Id, String> mapAccountIdWithStatus = new Map<Id, String>();
 
-            for(Account newAccount : newList){
-                if(newAccount.Status__c != oldMap.get(newAccount.Id).Status__c){
-                    mapAccountIdWithStatus.put(newAccount.Id, newAccount.Status__c);
-                }
+        for(Account newAccount : newList){
+            if(newAccount.Status__c != oldMap.get(newAccount.Id).Status__c){
+                mapAccountIdWithStatus.put(newAccount.Id, newAccount.Status__c);
             }
+        }
 
-            if(!mapAccountIdWithStatus.isEmpty()){
-                updateProperty = false;
-                ContactTriggerHelper.updateContact = false;
+        if(!mapAccountIdWithStatus.isEmpty()){
+            Constants.restrictPropertyChange = false;
+            Constants.restricContactChange = false;
 
-                List<Contact> listContact = [Select Status__c, AccountId, Account.Property__r.Status__c  from Contact 
-                                             where AccountId IN :mapAccountIdWithStatus.keySet()];
-                Set<Property__c> setProperty = new Set<Property__c>();
+            List<Contact> listContact = [Select Status__c, AccountId, Account.Property__r.Status__c  from Contact 
+                                         where AccountId IN :mapAccountIdWithStatus.keySet()];
+            Set<Property__c> setProperty = new Set<Property__c>();
 
+            if(!listContact.isEmpty()){
                 for(Contact recContact : listContact){
                     recContact.Status__c = mapAccountIdWithStatus.get(recContact.AccountId);
                     
@@ -168,14 +167,11 @@ public with sharing class AccountTriggerHelper{
                         setProperty.add(recContact.Account.Property__r);
                     }
                 }
+                update listContact;
 
-                if(!listContact.isEmpty()){
-                    update listContact;
-
-                    if(!setProperty.isEmpty()){
-                        update new List<Property__c>(setProperty);
-                    }
-                }            
+                if(!setProperty.isEmpty()){
+                    update new List<Property__c>(setProperty);
+                }          
             }
         }
     }

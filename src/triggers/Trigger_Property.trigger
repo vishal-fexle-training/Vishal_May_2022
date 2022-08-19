@@ -7,7 +7,9 @@
 trigger Trigger_Property on Property__c (after update){
     if(Trigger.isAfter){
         if(Trigger.isUpdate){
-            PropertyTriggerHelper.updateAccountStatus(Trigger.new, Trigger.oldMap);
+            if(Constants.restrictPropertyChange){
+                PropertyTriggerHelper.updateAccountAndContactStatus(Trigger.new, Trigger.oldMap);
+            }
         }
     }
 }
