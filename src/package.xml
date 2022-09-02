@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
+		<members>AccountChildRecordsComponentHelper</members>
+    <members>ConnectedCallBackExample</members>
 		<members>GetRecordsForLWC</members>
 		<members>AccountTriggerHelper</members>
 		<members>CountriesAndDistricts</members>
@@ -126,15 +128,17 @@
 		<name>RecordType</name>
 	</types>
 	<types>
-        <members>calculator</members>
-        <members>displayAccountRecords</members>
-        <members>helloInput</members>
-        <name>LightningComponentBundle</name>
-    </types>
+     <members>calculator</members>
+     <members>displayAccountRecords</members>
+     <members>helloInput</members>
+     <members>displayAccountChildRecords</members>
+     <members>methodCalling</members>
+     <name>LightningComponentBundle</name>
+  </types>
 	<types>
-		<members>Home_Page_Default</members>
-		<members>LWC_Practice_UtilityBar</members>
-		<name>FlexiPage</name>
+     <members>Home_Page_Default</members>
+     <members>LWC_Practice_UtilityBar</members>
+     <name>FlexiPage</name>
 	</types>
 	<version>53.0</version>
 </Package>
