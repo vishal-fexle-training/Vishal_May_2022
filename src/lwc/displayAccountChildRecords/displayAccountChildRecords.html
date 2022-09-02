@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Child records of account">
+        <div>
+            <template if:true={listCon}>
+                <lightning-card title="Contacts">
+                    <lightning-datatable key-field="id" data={listCon} columns={colsConAndOpp}></lightning-datatable>
+                </lightning-card>
+            </template>
+
+            <template if:true={listOpp}>
+                <lightning-card title="Opportunities">
+                    <lightning-datatable key-field="id" data={listOpp} columns={colsConAndOpp}></lightning-datatable>
+                </lightning-card>
+            </template>
+
+            <template if:true={listCase}>
+                <lightning-card title="Cases">
+                    <lightning-datatable key-field="id" data={listCase} columns={colsCase}></lightning-datatable>
+                </lightning-card>
+            </template>
+        </div>
+    </lightning-card>    
+</template>
