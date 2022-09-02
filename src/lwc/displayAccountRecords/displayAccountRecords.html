@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Recently created account records">
+        <div>
+            <template if:true={listAcc}>
+                <lightning-datatable key-field="id" data={listAcc} columns={cols}>
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -2,7 +2,8 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
 		<members>AccountChildRecordsComponentHelper</members>
-        <members>ConnectedCallBackExample</members>
+    <members>ConnectedCallBackExample</members>
+		<members>GetRecordsForLWC</members>
 		<members>AccountTriggerHelper</members>
 		<members>CountriesAndDistricts</members>
 		<members>TypeCastSobject</members>
@@ -53,22 +54,23 @@
 	</types>
 	<types>
 		<members>Trigger_Account</members>
-    <members>Trigger_Country</members>
+		<members>Trigger_Country</members>
 		<members>HelloWorldTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
 	<types>
+		<members>LWC_Practice</members>
 		<members>May25App1Vishal</members>
 		<name>CustomApplication</name>
 	</types>
 	<types>
-    <members>Account.Notebook__c</members>
+		<members>Account.Notebook__c</members>
 		<members>Book__c.Account_Number__c</members>
 		<members>Account.MailID__c</members>
 		<members>Account.MyExtID__c</members>
 		<members>Account.Test_Value__c</members>
-    <name>CustomField</name>
-  </types>
+		<name>CustomField</name>
+	</types>
 	<types>
 		<members>Notebook__c</members>
 		<members>Book__c</members>
@@ -126,14 +128,17 @@
 		<name>RecordType</name>
 	</types>
 	<types>
-        <members>displayAccountChildRecords</members>
-        <members>methodCalling</members>
-        <name>LightningComponentBundle</name>
-    </types>
+     <members>calculator</members>
+     <members>displayAccountRecords</members>
+     <members>helloInput</members>
+     <members>displayAccountChildRecords</members>
+     <members>methodCalling</members>
+     <name>LightningComponentBundle</name>
+  </types>
 	<types>
-        <members>Home_Page_Default</members>
-        <members>LWC_Practice_UtilityBar</members>
-        <name>FlexiPage</name>
+     <members>Home_Page_Default</members>
+     <members>LWC_Practice_UtilityBar</members>
+     <name>FlexiPage</name>
 	</types>
-<version>53.0</version>
+	<version>53.0</version>
 </Package>
