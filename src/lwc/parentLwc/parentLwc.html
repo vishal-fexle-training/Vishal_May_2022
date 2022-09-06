@@ -1,0 +1,14 @@
+<template>
+    <lightning-card>
+        <div>
+            <c-child-lwc onpercent={handleChangePercent} ></c-child-lwc>
+        </div>
+        <div>
+            <lightning-layout-item> {percentage}% </lightning-layout-item>
+            <lightning-progress-bar value={percentage} size="large"></lightning-progress-bar>
+        </div><br>
+        <div>
+            <lightning-layout-item flexibility="grow"> <div class="bar" style={barWidth}></div> </lightning-layout-item>
+        </div>
+    </lightning-card> 
+</template>
