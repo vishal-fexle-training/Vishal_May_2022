@@ -128,6 +128,11 @@
 		<name>RecordType</name>
 	</types>
 	<types>
+		<members>demoPublish</members>
+		<members>demoSubscribe</members>
+		<members>slotEmployee</members>
+		<members>slotInfo</members>
+		<members>slotStudent</members>
 		<members>childLwc</members>
         <members>childWebComponent</members>
         <members>parentLwc</members>
@@ -140,10 +145,20 @@
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
+		<members>Message_Service1</members>
+		<members>Slot</members>
 		<members>Child_to_Parent</members>
 		<members>Home_Page_Default</members>
 		<members>LWC_Practice_UtilityBar</members>
 		<name>FlexiPage</name>
+	</types>
+	<types>
+        <members>MyMessageChannel</members>
+        <name>LightningMessageChannel</name>
+    </types>
+	<types>
+		<members>trailhead_logo</members>
+		<name>StaticResource</name>
 	</types>
 	<version>53.0</version>
 </Package>
