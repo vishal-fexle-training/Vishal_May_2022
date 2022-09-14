@@ -152,5 +152,9 @@
 		<members>LWC_Practice_UtilityBar</members>
 		<name>FlexiPage</name>
 	</types>
+	<types>
+        <members>MyMessageChannel</members>
+        <name>LightningMessageChannel</name>
+    </types>
 	<version>53.0</version>
 </Package>
