@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
 	<types>
+		<members>ContactTileForLwc</members>
 		<members>AccountChildRecordsComponentHelper</members>
 		<members>ConnectedCallBackExample</members>
 		<members>GetRecordsForLWC</members>
@@ -128,6 +129,7 @@
 		<name>RecordType</name>
 	</types>
 	<types>
+		<members>tileContactRecords</members>
 		<members>demoPublish</members>
 		<members>demoSubscribe</members>
 		<members>slotEmployee</members>
@@ -145,6 +147,7 @@
 		<name>LightningComponentBundle</name>
 	</types>
 	<types>
+		<members>Flexi_Region</members>
 		<members>Message_Service1</members>
 		<members>Slot</members>
 		<members>Child_to_Parent</members>
