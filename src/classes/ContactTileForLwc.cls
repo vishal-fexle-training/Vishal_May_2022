@@ -14,6 +14,6 @@ public with sharing class ContactTileForLwc{
     */
     @AuraEnabled(cacheable=true)
     public static List<Contact> getContacts(){
-        return [Select Id, FirstName, LastName from Contact];
+        return [Select Id, Name, FirstName, LastName from Contact];
     }
 }
