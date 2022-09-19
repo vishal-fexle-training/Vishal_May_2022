@@ -5,7 +5,7 @@
             <template for:each={listContacts.data} for:item="recContact">
                 <lightning-layout-item key={recContact.Id} padding="around-small" size={numberOfComponents}>
                     <div>
-                        <p class="slds-text-heading_small"><a onclick={handleClick} name={recContact.Id}>{recContact.Id}</a></p>
+                        <p class="slds-text-heading_small"><a onclick={handleClick} name={recContact.Id}>{recContact.FirstName} {recContact.LastName}</a></p>
                     </div>
                     <div class="slds-theme_shade slds-box slds-p-around_medium slds-text-align_center">
                         Id : {recContact.Id}<br>

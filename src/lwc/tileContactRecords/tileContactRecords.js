@@ -20,13 +20,13 @@ export default class TileContactRecords extends NavigationMixin(LightningElement
     }
 
     handleClick(event){
-        this[NavigationMixin.Navigate]({
+        this[NavigationMixin.GenerateUrl]({
             type: 'standard__recordPage',
             attributes: {
                 objectApiName: 'Contact',
                 recordId:event.target.name,
                 actionName: 'view'
             }
-        });
+        }).then(url => { window.open(url) });
     }
 }
