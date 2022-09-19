@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Tile of Contact Records">
+    <div>
+        <lightning-layout multiple-rows class="slds-scrollable_y" style="height: 18rem;">
+            <template for:each={listContacts.data} for:item="recContact">
+                <lightning-layout-item key={recContact.Id} padding="around-small" size={numberOfComponents}>
+                    <div>
+                        <p class="slds-text-heading_small"><a onclick={handleClick} name={recContact.Id}>{recContact.Name}</a></p>
+                    </div>
+                    <div class="slds-theme_shade slds-box slds-p-around_medium slds-text-align_center">
+                        Id : {recContact.Id}<br>
+                        First Name : {recContact.FirstName}<br>
+                        Last Name : {recContact.LastName}
+                    </div>
+                </lightning-layout-item>
+            </template> 
+        </lightning-layout>    
+    </div> 
+    </lightning-card>
+</template>
