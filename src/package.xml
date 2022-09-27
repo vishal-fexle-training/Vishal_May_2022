@@ -65,6 +65,8 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>Student__c.Stage__c</members>
+		<members>Student__c.Student_Approval__c</members>
 		<members>Account.Notebook__c</members>
 		<members>Book__c.Account_Number__c</members>
 		<members>Account.MailID__c</members>
@@ -162,6 +164,24 @@
 	<types>
 		<members>trailhead_logo</members>
 		<name>StaticResource</name>
+	</types>
+	<types>
+		<members>Student__c.Student_Approval_Process</members>
+		<name>ApprovalProcess</name>
+	</types>
+	<types>
+		<members>Student_Request_Response/Student_Approved</members>
+		<members>Student_Request_Response/Student_Rejected</members>
+		<members>unfiled$public/Student_Request</members>
+		<name>EmailTemplate</name>
+	</types>
+	<types>
+		<members>Student_Approvers</members>
+		<name>Group</name>
+	</types>
+	<types>
+		<members>Student_Approvers</members>
+		<name>Queue</name>
 	</types>
 	<version>53.0</version>
 </Package>
