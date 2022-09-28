@@ -1,0 +1,5 @@
+Dear Manager,
+
+Student {!Student__c.Name} with Roll No. {!Student__c.Roll_Number__c} has made a request.
+
+Kindly review !
