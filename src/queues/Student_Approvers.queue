@@ -4,9 +4,6 @@
     <name>Student Approvers</name>
     <queueMembers>
         <users>
-            <user>veeshal1096@gmail.com</user>
-            <user>priya.mittal@fexle.com</user>
-            <user>seema.singh@fexle.com</user>
         </users>
     </queueMembers>
     <queueSobject>
