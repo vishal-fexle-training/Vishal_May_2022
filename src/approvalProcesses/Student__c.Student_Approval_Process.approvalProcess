@@ -25,7 +25,18 @@
         <name>Assigning_approvers</name>
     </approvalStep>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>Student__c.Student_Approval__c</field>
+            <operation>notEqual</operation>
+            <value>Pending Approval,Approved</value>
+        </criteriaItems>
+    </entryCriteria>
     <finalApprovalActions>
+        <action>
+            <name>Request_Approved</name>
+            <type>Alert</type>
+        </action>
         <action>
             <name>Update_Stage_Completed</name>
             <type>FieldUpdate</type>
@@ -37,6 +48,10 @@
     </finalApprovalActions>
     <finalApprovalRecordLock>false</finalApprovalRecordLock>
     <finalRejectionActions>
+        <action>
+            <name>Request_Rejected</name>
+            <type>Alert</type>
+        </action>
         <action>
             <name>Update_Stage_In_Set_up</name>
             <type>FieldUpdate</type>

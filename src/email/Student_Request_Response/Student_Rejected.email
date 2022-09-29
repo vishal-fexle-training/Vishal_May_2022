@@ -1,4 +1,4 @@
-Congratulations {!Student__c.Name},
+Dear {!Student__c.Name},
 
 Your recent request has been rejected.
 
