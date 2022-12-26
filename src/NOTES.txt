@@ -1,0 +1,207 @@
+Querying Delegated Administrators
+https://salesforce.stackexchange.com/questions/129/querying-delegated-administrators
+
+
+https://stackoverflow.com/questions/57381890/retrieve-delegategroups-and-accounts-associated-with-those-groups-from-salesforc
+
+
+Unsupported Metadata types
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_unsupported_types.htm
+
+
+public static final String GROUP_SERVICE_DESK_USER_ADMINISTRATION = 'Service Desk User Administration';
+public static final String PROFILE_IH_SERVICE_DESK = 'IH - Service Desk';
+
+    /**
+     * @description    :   This method is used to assigned Service Desk User Administration group to IH-Service Desk Profile users
+     *
+     * @arg            :   List of new Users
+     *
+     * @CreatedBy      :   FEXLE Services
+     *
+     * @return         :   Void
+     *
+     *                 :   V1.0 - Created - FEXLE Services
+    **/
+    public static void assignDelegatedGroupToIHServiceDeskProfile(List<User> listNewUsers){
+        //Holds IH - Service Desk Profile Record
+        Profile IHServiceDeskProfile = [SELECT Id FROM Profile WHERE Name = :PROFILE_IH_SERVICE_DESK LIMIT 1];
+        //Holds List of User with IH - Service Desk Profile
+        List<User> listIHServiceDeskProfileUser = new List<User>();
+
+        for(User newUser : listNewUsers){
+            if(newUser.ProfileId == IHServiceDeskProfile.Id){
+                listIHServiceDeskProfileUser.add(newUser);
+            }
+        }
+
+        if(listIHServiceDeskProfileUser.size() > 0){
+            DelegateGroup  delegateGroupForUser = [SELECT Id FROM DelegateGroup WHERE Name = :DELEGATE_GROUP_SERVICE_DESK_USER_ADMINISTRATION LIMIT 1];
+
+        }
+    }
+
+
+============================================================================================================================================================================================
+
+In FileStorageRecordTriggerHelper
+To upload a FSR records
+First create a platform event object (FSRCreate__e)
+publish this objet by calling EventBus.publish(objName);
+
+How to know if FSR record is uploaded?
+S3 Path Name and Uploaded to S3 gets updated
+When record is created for the first time S3 Path Name is empty, Mulesoft updates it	
+============================================================================================================================================================================================
+
+
+
+
+
+
+
+
+
+SELECT Id, COS_Creator_Email_Formula__c, COS_Submitter_Email_Formula__c, Vendor_Company_Email_Formula__c, Vendor_Company_Email_2_Formula__c, Alert_Insurance_Claim_Email_Formula__c FROM Change_Order_Submission__c 
+WHERE (COS_Creator_Email__c != Null AND (NOT COS_Creator_Email__c LIKE '%invalid')) OR
+(COS_Submitter_Email__c != Null AND (NOT COS_Submitter_Email__c LIKE '%invalid')) OR
+(Vendor_Company_Email__c != Null AND (NOT Vendor_Company_Email__c LIKE '%invalid')) OR
+(Vendor_Company_Email_2__c != Null AND (NOT Vendor_Company_Email_2__c LIKE '%invalid')) OR
+(Alert_Insurance_Claim_Email_Address__c  != Null AND (NOT Alert_Insurance_Claim_Email_Address__c LIKE '%invalid'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+To create records - 
+1. Create File Storage Type
+2. Click Manage Access Button in File Storage Type record
+3. Create Rule
+	Select objects
+	Select Profiles
+	Save Rulle
+4. Create File Storage Record
+	Give File Type Name also of above created File Storage Type record
+5. Create Parent record of Pipeline while creating File Storage Record
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+List<Change_Order_Submission__c> cosToUpdate = new List<Change_Order_Submission__c>();
+
+List<Change_Order_Submission__c> cosList = [SELECT Id,COS_Creator_Email__c, COS_Submitter_Email__c, Vendor_Company_Email__c, Vendor_Company_Email_2__c, Alert_Insurance_Claim_Email_Address__c, Email_Masking_Complete__c
+ FROM Change_Order_Submission__c 
+WHERE (COS_Creator_Email__c != Null AND (NOT COS_Creator_Email__c LIKE '%invalid')) OR
+(COS_Submitter_Email__c != Null AND (NOT COS_Submitter_Email__c LIKE '%invalid')) OR
+(Vendor_Company_Email__c != Null AND (NOT Vendor_Company_Email__c LIKE '%invalid')) OR
+(Vendor_Company_Email_2__c != Null AND (NOT Vendor_Company_Email_2__c LIKE '%invalid')) OR
+(Alert_Insurance_Claim_Email_Address__c  != Null AND (NOT Alert_Insurance_Claim_Email_Address__c LIKE '%invalid'))];
+
+if(cosList.size() > 0) {
+    
+    for(Change_Order_Submission__c cos :  cosList) {
+        cos.Email_Masking_Complete__c = true;
+
+        if(cos.COS_Creator_Email__c != NULL && !cos.COS_Creator_Email__c.contains('.invalid'))
+            cos.COS_Creator_Email__c = cos.COS_Creator_Email__c + '.invalid';
+
+	  if(cos.COS_Submitter_Email__c != NULL && !cos.COS_Submitter_Email__c.contains('.invalid'))
+            cos.COS_Submitter_Email__c = cos.COS_Submitter_Email__c + '.invalid';
+
+	  if(cos.Vendor_Company_Email__c != NULL && !cos.Vendor_Company_Email__c.contains('.invalid'))
+            cos.Vendor_Company_Email__c = cos.Vendor_Company_Email__c + '.invalid';
+
+	  if(cos.Vendor_Company_Email_2__c != NULL && !cos.Vendor_Company_Email_2__c.contains('.invalid'))
+            cos.Vendor_Company_Email_2__c = cos.Vendor_Company_Email_2__c + '.invalid';
+
+	  if(cos.Alert_Insurance_Claim_Email_Address__c != NULL && !cos.Alert_Insurance_Claim_Email_Address__c.contains('.invalid'))
+            cos.Alert_Insurance_Claim_Email_Address__c = cos.Alert_Insurance_Claim_Email_Address__c + '.invalid';
+
+        cosToUpdate.add(cos);
+    }  
+    
+    if(cosToUpdate.size() > 0)
+        Database.update(cosToUpdate,false);
+}
+
